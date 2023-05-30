@@ -2,23 +2,13 @@ import { Box, Button, Stack, TextField, Typography, useTheme } from '@mui/materi
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
-import React, { useCallback } from 'react'
-import { Controller, useForm } from "react-hook-form";
+import React, { useCallback, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { api } from '~/utils/api';
 
-type FormValues = {
-    recipientAddress: string,
-    amount: string
-}
-
-const initialValues: FormValues = {
-    recipientAddress: '',
-    amount: ''
-}
-
 function SendSolanaForm() {
-    const theme = useTheme()
+    const [recipientAddress, setRecipientAddress] = useState('');
+    const [amount, setAmount] = useState('');
     const { connection } = useConnection();
     const { publicKey, sendTransaction } = useWallet();
     const recordTransaction = api.transaction.recordTransaction.useMutation();
@@ -51,6 +41,8 @@ function SendSolanaForm() {
                 amount: parseFloat(amount) * 1e9,
                 slotNumber: slot,
             })
+            setRecipientAddress('');
+            setAmount('');
             toast.success('Transaction recorded successfully!');
         }
         catch (error) {
@@ -58,17 +50,10 @@ function SendSolanaForm() {
         }
     }, [publicKey, connection, sendTransaction, recordTransaction]);
 
-    const onSubmit = ({ recipientAddress, amount }: FormValues) => sendSolana(recipientAddress, amount);
-
-
-    const { handleSubmit, control } = useForm({
-        defaultValues: initialValues,
-    });
+    const theme = useTheme()
 
     return (
         <Box
-            component='form'
-            onSubmit={() => handleSubmit(onSubmit)}
             borderRadius={1}
             border={`1px solid ${theme.palette.grey[600]}`}
             padding={theme.spacing(3)}
@@ -79,41 +64,32 @@ function SendSolanaForm() {
                 <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 3 }}>
                     Send SOL
                 </Typography>
-                <Controller
-                    name={"recipientAddress"}
-                    control={control}
-                    render={({ field }) => (
-                        <TextField
-                            {...field}
-                            size='small'
-                            placeholder="Recipient Address"
-                            variant="outlined"
-                            InputProps={{ sx: { borderRadius: 2 } }}
-                            sx={{ marginBottom: 2 }}
-                            fullWidth
-                        />
-                    )}
+                <TextField
+                    size='small'
+                    placeholder="Recipient Address"
+                    variant="outlined"
+                    InputProps={{ sx: { borderRadius: 2 } }}
+                    sx={{ marginBottom: 2 }}
+                    fullWidth
+                    value={recipientAddress}
+                    onChange={(e) => setRecipientAddress(e.target.value)}
                 />
-                <Controller
-                    name={"amount"}
-                    control={control}
-                    render={({ field }) => (
-                        <TextField
-                            {...field}
-                            size='small'
-                            placeholder="Amount"
-                            variant="outlined"
-                            InputProps={{ sx: { borderRadius: 2 } }}
-                            sx={{ marginBottom: 2 }}
-                            fullWidth
-                        />
-                    )}
+                <TextField
+                    size='small'
+                    placeholder="Amount"
+                    variant="outlined"
+                    InputProps={{ sx: { borderRadius: 2 } }}
+                    sx={{ marginBottom: 2 }}
+                    fullWidth
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
                 />
                 <Button
+                    disabled={!recipientAddress || !amount}
+                    onClick={() => void sendSolana(recipientAddress, amount)}
                     fullWidth
                     variant='outlined'
                     size='large'
-                    type='submit'
                     sx={{
                         borderRadius: 2,
                     }}>
