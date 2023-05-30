@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Box, Button, Modal, type Theme, Typography, Table, TableRow, TableCell, TableBody, useTheme, Tooltip } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react'
@@ -22,7 +20,7 @@ function TransactionModal({ isOpen, onClose, selectedTransaction }: TransactionM
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
-    });
+    }) as string;
 
     return (
         <Modal
@@ -75,7 +73,7 @@ function TransactionModal({ isOpen, onClose, selectedTransaction }: TransactionM
                             {Object.entries(selectedTransaction).map(([key, value]) => (
                                 <Tooltip
                                     key={key}
-                                    title={key === 'timestamp' ? formattedTimestamp : value}
+                                    title={key === 'timestamp' ? formattedTimestamp : value as string}
                                     arrow>
                                     <TableRow
                                         key={key}
@@ -86,7 +84,7 @@ function TransactionModal({ isOpen, onClose, selectedTransaction }: TransactionM
                                             },
                                         }}>
                                         <TableCell align='right'>{key}</TableCell>
-                                        <TableCell align='left'>{key === 'timestamp' ? formattedTimestamp : truncateText(value, 30)}</TableCell>
+                                        <TableCell align='left'>{key === 'timestamp' ? formattedTimestamp : truncateText(value as string, 30)}</TableCell>
                                     </TableRow>
                                 </Tooltip>
                             ))}

@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     type PublicKey,
     type Transaction,
     type SendOptions
 } from '@solana/web3.js';
-import { WithId, type ObjectId } from 'mongodb';
+import { type ObjectId } from 'mongodb';
 
 type DisplayEncoding = 'utf8' | 'hex';
 
@@ -55,4 +54,4 @@ export interface SolanaTransaction {
     amount: number;
     timestamp: Date;
     slotNumber: number;
-  }
+}

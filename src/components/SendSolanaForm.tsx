@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Button, Stack, TextField, Typography, useTheme } from '@mui/material'
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
@@ -61,14 +60,15 @@ function SendSolanaForm() {
 
     const onSubmit = ({ recipientAddress, amount }: FormValues) => sendSolana(recipientAddress, amount);
 
+
     const { handleSubmit, control } = useForm({
-        defaultValues: initialValues
+        defaultValues: initialValues,
     });
 
     return (
         <Box
             component='form'
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={() => handleSubmit(onSubmit)}
             borderRadius={1}
             border={`1px solid ${theme.palette.grey[600]}`}
             padding={theme.spacing(3)}

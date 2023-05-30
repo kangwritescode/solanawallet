@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Autocomplete, Box, Button, Stack, TextField, useTheme } from '@mui/material'
 import { useWallet } from '@solana/wallet-adapter-react';
 import React, { useEffect } from 'react'
