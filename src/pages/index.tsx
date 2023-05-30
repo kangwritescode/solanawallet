@@ -38,10 +38,12 @@ const Home: NextPage = () => {
                     component={Image}
                     src={SolanaSvg as string}
                     alt="Solana Logo"
-                    width="70%"
+                    width="50%"
                     sx={{
                         opacity: 0.02,
-                    }} />
+                        pointerEvents: 'none',
+                    }}
+                />
                 {publicKey ? (
                     <Stack
                         alignItems='center'
@@ -51,6 +53,7 @@ const Home: NextPage = () => {
                         sx={{
                             [theme.breakpoints.up('sm')]: {
                                 flexDirection: 'row',
+                                alignItems: 'flex-start',
                             },
                         }}>
                         <Stack>
