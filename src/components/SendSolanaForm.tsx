@@ -45,13 +45,13 @@ function SendSolanaForm() {
             const { context: { slot } } = await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
 
             // Add Transaction to DB
-            recordTransaction.mutate({
+            await recordTransaction.mutateAsync({
                 transactionHash: signature,
                 from: publicKey.toString(),
                 to: recipientAddress,
                 amount: parseFloat(amount) * 1e9,
                 slotNumber: slot,
-            });
+            })
             toast.success('Transaction recorded successfully!');
         }
         catch (error) {
