@@ -1,6 +1,7 @@
 import {
     AppBar,
-    Toolbar
+    Toolbar,
+    useTheme
 } from '@mui/material'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import {
@@ -19,11 +20,17 @@ function Layout({ children }: LayoutProps) {
     useEffect(() => {
         setDidMount(true)
     }, [])
+
+    const theme = useTheme()
+
     return (
         <>
             <AppBar
                 color='transparent'
-                position='static'>
+                position='sticky'
+                sx={{
+                    background: theme.palette.background.default,
+                }}>
                 <Toolbar sx={{
                     display: 'flex',
                     justifyContent: 'flex-end',
