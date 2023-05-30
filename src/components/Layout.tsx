@@ -30,6 +30,7 @@ function Layout({ children }: LayoutProps) {
                 }}>
                     {didMount && <WalletMultiButton style={{
                         borderRadius: 30,
+                        background: '#512da8'
                     }} />}
                 </Toolbar>
             </AppBar>
