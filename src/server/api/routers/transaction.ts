@@ -27,7 +27,7 @@ export const transactionRouter = createTRPCRouter({
         }),
     getTransactions: publicProcedure
         .input(z.object({
-            walletId: z.string(),
+            walletId: z.string().optional(),
         }))
         .query(async ({ input, ctx }) => {
 
@@ -39,7 +39,7 @@ export const transactionRouter = createTRPCRouter({
         }),
     getTransactionByHash: publicProcedure
         .input(z.object({
-            walletId: z.string(),
+            walletId: z.string().optional(),
             transactionHash: z.string(),
         }))
         .query(async ({ input, ctx }) => {

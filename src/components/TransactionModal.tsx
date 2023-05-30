@@ -85,7 +85,7 @@ function TransactionModal({ isOpen, onClose, selectedTransaction }: TransactionM
                                                 cursor: 'pointer',
                                             },
                                         }}>
-                                        <TableCell>{key}</TableCell>
+                                        <TableCell align='right'>{key}</TableCell>
                                         <TableCell align='left'>{key === 'timestamp' ? formattedTimestamp : truncateText(value, 30)}</TableCell>
                                     </TableRow>
                                 </Tooltip>

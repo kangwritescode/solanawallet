@@ -11,19 +11,19 @@ interface TransactionSearchProps {
 }
 
 function TransactionSearch({ onTransactionSelected }: TransactionSearchProps) {
-    const theme = useTheme()
-    const { publicKey } = useWallet();
-
-
     // state
-    const [inputValue, setInputValue] = React.useState('');
     const [options, setOptions] = React.useState<SolanaTransaction[]>([]);
+    const [inputValue, setInputValue] = React.useState('');
     const [formValue, setFormValue] = React.useState<SolanaTransaction | null>(null);
 
+    const { publicKey } = useWallet();
+
     const { data: transactionData } = api.transaction.getTransactionByHash.useQuery({
-        walletId: publicKey?.toString() || '',
+        walletId: publicKey?.toString(),
         transactionHash: inputValue
-    }, { enabled: inputValue.length > 0 });
+    }, {
+        enabled: inputValue.length > 0
+    });
 
     useEffect(() => {
         if (transactionData) {
@@ -32,6 +32,8 @@ function TransactionSearch({ onTransactionSelected }: TransactionSearchProps) {
             setOptions([])
         }
     }, [transactionData, inputValue])
+
+    const theme = useTheme()
 
     return (
         <Box
