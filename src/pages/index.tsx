@@ -29,7 +29,7 @@ const Home: NextPage = () => {
                 display='flex'
                 flexDirection='column'
                 alignItems='center'
-                justifyContent='center'
+                paddingTop={16}
                 minHeight='86vh'
             >
                 <Box
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
                         </Stack>
                         <SendSolanaForm />
                     </Stack>
-                ) : <Typography zIndex={3} variant="h4">Please connect your wallet ☝️</Typography>}
+                ) : <Typography position='absolute' top='50%' zIndex={3} variant="h4">Please connect your wallet ☝️</Typography>}
             </Box>
             <TransactionModal
                 isOpen={selectedTransaction !== undefined}

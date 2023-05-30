@@ -26,11 +26,12 @@ function Layout({ children }: LayoutProps) {
                 position='static'>
                 <Toolbar sx={{
                     display: 'flex',
-                    justifyContent: 'flex-end'
+                    justifyContent: 'flex-end',
+                    padding: 2,
                 }}>
                     {didMount && <WalletMultiButton style={{
                         borderRadius: 30,
-                        background: '#512da8'
+                        background: '#512da8',
                     }} />}
                 </Toolbar>
             </AppBar>
