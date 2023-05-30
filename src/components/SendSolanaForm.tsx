@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Button, Stack, SxProps, TextField, Theme, Typography, useTheme } from '@mui/material'
+import { Box, Button, Stack, TextField, Typography, useTheme } from '@mui/material'
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
@@ -66,12 +66,16 @@ function SendSolanaForm() {
     });
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack sx={{
-                border: `1px solid ${theme.palette.grey[500]}`,
-                padding: theme.spacing(3),
-                alignItems: 'center',
-            }}>
+        <Box
+            component='form'
+            onSubmit={handleSubmit(onSubmit)}
+            borderRadius={1}
+            border={`1px solid ${theme.palette.grey[600]}`}
+            padding={theme.spacing(3)}
+            alignItems='center'
+            textAlign='center'
+            width={330}>
+            <Stack>
                 <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 3 }}>
                     Send SOL
                 </Typography>
@@ -86,6 +90,7 @@ function SendSolanaForm() {
                             variant="outlined"
                             InputProps={{ sx: { borderRadius: 2 } }}
                             sx={{ marginBottom: 2 }}
+                            fullWidth
                         />
                     )}
                 />
@@ -100,6 +105,7 @@ function SendSolanaForm() {
                             variant="outlined"
                             InputProps={{ sx: { borderRadius: 2 } }}
                             sx={{ marginBottom: 2 }}
+                            fullWidth
                         />
                     )}
                 />
@@ -114,7 +120,7 @@ function SendSolanaForm() {
                     Send
                 </Button>
             </Stack>
-        </form>
+        </Box>
     )
 }
 

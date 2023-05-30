@@ -23,14 +23,38 @@ export const transactionRouter = createTRPCRouter({
                 timestamp: new Date(),
             });
 
-            console.log(result);
-
             return result;
         }),
     getTransactions: publicProcedure
-        .query(async ({ ctx }) => {
-            const result = await ctx.db.collection<SolanaTransaction>('transactions').find({}).toArray();
+        .input(z.object({
+            walletId: z.string(),
+        }))
+        .query(async ({ input, ctx }) => {
+
+            const result = await ctx.db.collection<SolanaTransaction>('transactions').find({
+                from: input.walletId,
+            }).toArray();
 
             return result;
+        }),
+    getTransactionByHash: publicProcedure
+        .input(z.object({
+            walletId: z.string(),
+            transactionHash: z.string(),
+        }))
+        .query(async ({ input, ctx }) => {
+
+            const result = await ctx.db.collection<SolanaTransaction>('transactions').find({
+                from: input.walletId,
+                transactionHash: { $regex: `^${input.transactionHash}` }
+            }).toArray();
+
+            result.filter((transaction) => transaction.transactionHash === input.transactionHash)
+
+            if (result.length > 0) {
+                return result[0];
+            }
+
+            return null;
         }),
 });
