@@ -4,6 +4,7 @@ import "~/styles/globals.css";
 import Layout from "~/components/Layout";
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
+import { Toaster } from 'react-hot-toast';
 
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import {
@@ -43,11 +44,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                     <WalletModalProvider>
                         <Layout>
                             <Component {...pageProps} />
+                            <Toaster position="bottom-left" reverseOrder={false} />
                         </Layout>
                     </WalletModalProvider>
                 </WalletProvider>
             </ConnectionProvider>
-
         </ThemeProvider>
     );
 };

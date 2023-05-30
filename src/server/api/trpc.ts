@@ -11,6 +11,8 @@ import { initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { MongoClient, ServerApiVersion } from 'mongodb';
+import { env } from "~/env.mjs";
 
 /**
  * 1. CONTEXT
@@ -32,8 +34,21 @@ type CreateContextOptions = Record<string, never>;
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-const createInnerTRPCContext = (_opts: CreateContextOptions) => {
-  return {};
+const createInnerTRPCContext = async (_opts: CreateContextOptions) => {
+    const mongoClient = new MongoClient(env.DATABASE_URL, {
+        serverApi: {
+            version: ServerApiVersion.v1,
+            strict: true,
+            deprecationErrors: true,
+        },
+    });
+
+    // Connect the client to the server
+    await mongoClient.connect();
+
+    return {
+        db: mongoClient.db('solanaWalletDB'),
+    };
 };
 
 /**
@@ -43,7 +58,7 @@ const createInnerTRPCContext = (_opts: CreateContextOptions) => {
  * @see https://trpc.io/docs/context
  */
 export const createTRPCContext = (_opts: CreateNextContextOptions) => {
-  return createInnerTRPCContext({});
+    return createInnerTRPCContext({});
 };
 
 /**
@@ -55,17 +70,17 @@ export const createTRPCContext = (_opts: CreateNextContextOptions) => {
  */
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
-  transformer: superjson,
-  errorFormatter({ shape, error }) {
-    return {
-      ...shape,
-      data: {
-        ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
-      },
-    };
-  },
+    transformer: superjson,
+    errorFormatter({ shape, error }) {
+        return {
+            ...shape,
+            data: {
+                ...shape.data,
+                zodError:
+                    error.cause instanceof ZodError ? error.cause.flatten() : null,
+            },
+        };
+    },
 });
 
 /**

@@ -1,9 +1,16 @@
-import { AppBar, Toolbar } from '@mui/material'
+import {
+    AppBar,
+    Toolbar
+} from '@mui/material'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { useEffect, useState } from 'react';
+import {
+    type ReactNode,
+    useEffect,
+    useState
+} from 'react';
 
 interface LayoutProps {
-    children: React.ReactNode
+    children: ReactNode
 }
 
 function Layout({ children }: LayoutProps) {
@@ -16,7 +23,7 @@ function Layout({ children }: LayoutProps) {
         <>
             <AppBar
                 color='transparent'
-                position='absolute'>
+                position='static'>
                 <Toolbar sx={{
                     display: 'flex',
                     justifyContent: 'flex-end'
