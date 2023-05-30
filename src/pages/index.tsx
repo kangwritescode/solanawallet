@@ -4,6 +4,7 @@ import Head from "next/head";
 import SendSolanaForm from '~/components/SendSolanaForm';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Box, Stack, Typography } from '@mui/material';
+import TransactionTable from '~/components/TransactionTable';
 
 const Home: NextPage = () => {
     const { publicKey } = useWallet();
@@ -23,10 +24,10 @@ const Home: NextPage = () => {
                 minHeight='86vh'
             >
                 {publicKey ? (
-                    <Stack direction='row'>
-                        <div>
-                            table
-                        </div>
+                    <Stack mb={16} direction='row' gap={5}>
+                        <Box>
+                            <TransactionTable />
+                        </Box>
                         <SendSolanaForm />
                     </Stack>
                 ) : <Typography variant="h4">Please connect your wallet ☝️</Typography>}

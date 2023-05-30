@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Button, Stack, TextField, Typography, useTheme } from '@mui/material'
+import { Button, Stack, SxProps, TextField, Theme, Typography, useTheme } from '@mui/material'
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { Controller, useForm } from "react-hook-form";
 import { toast } from 'react-hot-toast';
 import { api } from '~/utils/api';
@@ -49,7 +49,7 @@ function SendSolanaForm() {
                 transactionHash: signature,
                 from: publicKey.toString(),
                 to: recipientAddress,
-                amount: 234234,
+                amount: parseFloat(amount) * 1e9,
                 slotNumber: slot,
             });
             toast.success('Transaction recorded successfully!');

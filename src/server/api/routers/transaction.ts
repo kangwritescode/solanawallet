@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { type SolanaTransaction } from "~/shared/types";
 
 export const transactionRouter = createTRPCRouter({
     recordTransaction: publicProcedure
@@ -23,7 +24,13 @@ export const transactionRouter = createTRPCRouter({
             });
 
             console.log(result);
-            
+
+            return result;
+        }),
+    getTransactions: publicProcedure
+        .query(async ({ ctx }) => {
+            const result = await ctx.db.collection<SolanaTransaction>('transactions').find({}).toArray();
+
             return result;
         }),
 });

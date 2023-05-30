@@ -4,7 +4,7 @@ import {
     type Transaction,
     type SendOptions
 } from '@solana/web3.js';
-import { type ObjectId } from 'mongodb';
+import { WithId, type ObjectId } from 'mongodb';
 
 type DisplayEncoding = 'utf8' | 'hex';
 
@@ -47,8 +47,8 @@ export interface TLog {
     messageTwo?: string;
 }
 
-export interface TransactionModel {
-    transactionId: ObjectId;
+export interface SolanaTransaction {
+    _id: ObjectId;
     transactionHash: string;
     from: string;
     to: string;
