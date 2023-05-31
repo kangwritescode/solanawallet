@@ -86,7 +86,7 @@ function SendSolanaForm() {
                     size='small'
                     placeholder="Recipient Address"
                     variant="outlined"
-                    InputProps={{ sx: { borderRadius: 2 } }}
+                    InputProps={{ sx: { borderRadius: 2 }, autoComplete: 'off' }}
                     sx={{ marginBottom: 2 }}
                     fullWidth
                     value={recipientAddress}
@@ -97,7 +97,7 @@ function SendSolanaForm() {
                     size='small'
                     placeholder="Amount"
                     variant="outlined"
-                    InputProps={{ sx: { borderRadius: 2 } }}
+                    InputProps={{ sx: { borderRadius: 2 }, autoComplete: 'off' }}
                     sx={{ marginBottom: 2 }}
                     fullWidth
                     value={amount}
