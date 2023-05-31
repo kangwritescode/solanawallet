@@ -3,7 +3,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import React, { useEffect } from 'react'
 import { type SolanaTransaction } from '~/shared/types';
 import { api } from '~/utils/api';
-import { truncateText } from '~/utils/truncateText';
+import { truncateText } from '~/utils/helpers';
 
 interface TransactionSearchProps {
     onTransactionSelected: (transaction: SolanaTransaction) => void;

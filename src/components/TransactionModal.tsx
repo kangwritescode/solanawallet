@@ -2,7 +2,7 @@ import { Box, Button, Modal, type Theme, Typography, Table, TableRow, TableCell,
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react'
 import { type SolanaTransaction } from '~/shared/types';
-import { truncateText } from '~/utils/truncateText';
+import { lamportToSolana, truncateText } from '~/utils/helpers';
 
 interface TransactionModalProps {
     isOpen: boolean;
@@ -88,7 +88,9 @@ function TransactionModal({ isOpen, onClose, selectedTransaction }: TransactionM
                                         <TableCell align='left'>
                                             {key === 'timestamp' ?
                                                 formattedTimestamp :
-                                                truncateText(value as string, 30)}
+                                                key === 'amount' ?
+                                                    lamportToSolana(value as number) :
+                                                    truncateText(value as string, 30)}
                                         </TableCell>
                                     </TableRow>
                                 </Tooltip>

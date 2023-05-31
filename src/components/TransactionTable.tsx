@@ -6,9 +6,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { api } from '~/utils/api';
-import { truncateText } from '~/utils/truncateText';
 import { useTheme } from '@mui/material';
-import { lamportToSolana } from '~/utils/lamportToSolana';
+import { lamportToSolana, truncateText } from '~/utils/helpers';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { type SolanaTransaction } from '~/shared/types';
 
