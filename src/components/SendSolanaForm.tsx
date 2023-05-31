@@ -7,11 +7,18 @@ import { toast } from 'react-hot-toast';
 import { api } from '~/utils/api';
 
 function SendSolanaForm() {
+
+    // State
     const [recipientAddress, setRecipientAddress] = useState('');
     const [amount, setAmount] = useState('');
     const [isSending, setIsSending] = useState(false);
+
+    // Hooks
     const { connection } = useConnection();
     const { publicKey, sendTransaction } = useWallet();
+    const theme = useTheme();
+
+    // Mutations
     const recordTransaction = api.transaction.recordTransaction.useMutation();
 
     const sendSolana = useCallback(async (recipientAddress: string, amount: string) => {
@@ -55,7 +62,7 @@ function SendSolanaForm() {
         }
     }, [publicKey, connection, sendTransaction, recordTransaction]);
 
-    const theme = useTheme()
+
 
     return (
         <Box

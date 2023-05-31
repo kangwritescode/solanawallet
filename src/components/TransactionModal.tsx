@@ -11,6 +11,7 @@ interface TransactionModalProps {
 }
 
 function TransactionModal({ isOpen, onClose, selectedTransaction }: TransactionModalProps) {
+
     const theme = useTheme();
 
     const formattedTimestamp = selectedTransaction?.timestamp.toLocaleString('en-US', {
@@ -84,7 +85,11 @@ function TransactionModal({ isOpen, onClose, selectedTransaction }: TransactionM
                                             },
                                         }}>
                                         <TableCell align='right'>{key}</TableCell>
-                                        <TableCell align='left'>{key === 'timestamp' ? formattedTimestamp : truncateText(value as string, 30)}</TableCell>
+                                        <TableCell align='left'>
+                                            {key === 'timestamp' ?
+                                                formattedTimestamp :
+                                                truncateText(value as string, 30)}
+                                        </TableCell>
                                     </TableRow>
                                 </Tooltip>
                             ))}

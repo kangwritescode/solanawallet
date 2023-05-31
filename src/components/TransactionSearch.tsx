@@ -10,13 +10,16 @@ interface TransactionSearchProps {
 }
 
 function TransactionSearch({ onTransactionSelected }: TransactionSearchProps) {
-    // state
+
+    // State
     const [options, setOptions] = React.useState<SolanaTransaction[]>([]);
     const [inputValue, setInputValue] = React.useState('');
     const [formValue, setFormValue] = React.useState<SolanaTransaction | null>(null);
 
+    // Hooks
     const { publicKey } = useWallet();
 
+    // Queries
     const { data: transactionData } = api.transaction.getTransactionByHash.useQuery({
         walletId: publicKey?.toString(),
         transactionHash: inputValue

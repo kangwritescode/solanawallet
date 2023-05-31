@@ -12,6 +12,7 @@ export const transactionRouter = createTRPCRouter({
             slotNumber: z.number(),
         }))
         .mutation(async ({ input, ctx }) => {
+            
             const { transactionHash, from, to, amount, slotNumber } = input;
 
             const result = await ctx.db.collection('transactions').insertOne({
@@ -31,9 +32,9 @@ export const transactionRouter = createTRPCRouter({
         }))
         .query(async ({ input, ctx }) => {
 
-            const result = await ctx.db.collection<SolanaTransaction>('transactions').find({
-                from: input.walletId,
-            }).toArray();
+            const result = await ctx.db.collection<SolanaTransaction>('transactions')
+                .find({ from: input.walletId, })
+                .toArray();
 
             return result;
         }),
@@ -44,10 +45,12 @@ export const transactionRouter = createTRPCRouter({
         }))
         .query(async ({ input, ctx }) => {
 
-            const result = await ctx.db.collection<SolanaTransaction>('transactions').find({
-                from: input.walletId,
-                transactionHash: { $regex: `^${input.transactionHash}` }
-            }).toArray();
+            const result = await ctx.db.collection<SolanaTransaction>('transactions')
+                .find({
+                    from: input.walletId,
+                    transactionHash: { $regex: `^${input.transactionHash}` }
+                })
+                .toArray();
 
             result.filter((transaction) => transaction.transactionHash === input.transactionHash)
 

@@ -17,8 +17,12 @@ interface TransactionTableProps {
 }
 
 export default function TransactionTable({ onTransactionSelected }: TransactionTableProps) {
+
+    // Hooks
     const theme = useTheme();
     const { publicKey } = useWallet();
+
+    // Queries
     const { data: transactions } = api.transaction.getTransactions.useQuery({
         walletId: publicKey?.toString()
     }, {

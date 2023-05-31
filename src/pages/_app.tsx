@@ -1,22 +1,20 @@
-import { type AppType } from "next/app";
-import { api } from "~/utils/api";
-import "~/styles/globals.css";
-import Layout from "~/components/Layout";
-import { ThemeProvider, createTheme } from "@mui/material";
-import CssBaseline from '@mui/material/CssBaseline';
-import { Toaster } from 'react-hot-toast';
 
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import {
-    WalletModalProvider,
-} from '@solana/wallet-adapter-react-ui';
-import { clusterApiUrl, type Cluster } from "@solana/web3.js";
 import { useMemo } from "react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
+import { type AppType } from "next/app";
+import { ThemeProvider, createTheme } from "@mui/material";
+import { Toaster } from 'react-hot-toast';
+import CssBaseline from '@mui/material/CssBaseline';
 
-// Default styles that can be overridden by your app
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { clusterApiUrl, type Cluster } from "@solana/web3.js";
 import '@solana/wallet-adapter-react-ui/styles.css';
+
+import Layout from "~/components/Layout";
+import { api } from "~/utils/api";
+import "~/styles/globals.css";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
 
@@ -27,7 +25,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     });
 
     const network: Cluster = WalletAdapterNetwork.Devnet;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const endpoint: string = clusterApiUrl(network);
 
     const wallets = useMemo(

@@ -15,6 +15,7 @@ interface LayoutProps {
 }
 
 function Layout({ children }: LayoutProps) {
+    
     // This is a hack to prevent the WalletMultiButton from rendering on the server
     const [didMount, setDidMount] = useState(false)
     useEffect(() => {
