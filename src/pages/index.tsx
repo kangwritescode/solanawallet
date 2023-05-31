@@ -11,6 +11,7 @@ import TransactionModal from '~/components/TransactionModal';
 import SendSolanaForm from '~/components/SendSolanaForm';
 import { type SolanaTransaction } from '~/shared/types';
 import SolanaSvg from '~/assets/solana-sol-logo.svg';
+import 'animate.css';
 
 
 const Home: NextPage = () => {
@@ -78,7 +79,12 @@ const Home: NextPage = () => {
                         top='50%'
                         zIndex={3}
                         variant="h4">
-                        Please connect your wallet ☝️
+                        Please connect your wallet 
+                        <Box
+                            display='inline-block'
+                            className='animate__animated animate__heartBeat animate__infinite'>
+                            &nbsp;☝️
+                        </Box>
                     </Typography>
                 )}
             </Box>
