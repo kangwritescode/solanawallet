@@ -9,12 +9,14 @@ import { api } from '~/utils/api';
 function SendSolanaForm() {
     const [recipientAddress, setRecipientAddress] = useState('');
     const [amount, setAmount] = useState('');
+    const [isSending, setIsSending] = useState(false);
     const { connection } = useConnection();
     const { publicKey, sendTransaction } = useWallet();
     const recordTransaction = api.transaction.recordTransaction.useMutation();
 
     const sendSolana = useCallback(async (recipientAddress: string, amount: string) => {
         try {
+            setIsSending(true);
             if (!publicKey) throw new WalletNotConnectedError();
 
             const transaction = new Transaction().add(
@@ -44,9 +46,12 @@ function SendSolanaForm() {
             setRecipientAddress('');
             setAmount('');
             toast.success('Transaction recorded successfully!');
+            setIsSending(false)
         }
-        catch (error) {
-            console.log(error)
+        catch ({message}: any) {
+            toast.error(message as string);
+            console.log(message)
+            setIsSending(false);
         }
     }, [publicKey, connection, sendTransaction, recordTransaction]);
 
@@ -85,7 +90,7 @@ function SendSolanaForm() {
                     onChange={(e) => setAmount(e.target.value)}
                 />
                 <Button
-                    disabled={!recipientAddress || !amount}
+                    disabled={!recipientAddress || !amount || isSending}
                     onClick={() => void sendSolana(recipientAddress, amount)}
                     fullWidth
                     variant='outlined'
