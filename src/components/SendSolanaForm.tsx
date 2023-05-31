@@ -55,14 +55,20 @@ function SendSolanaForm() {
             toast.success('Transaction recorded successfully!');
             setIsSending(false)
         }
-        catch ({message}: any) {
+        catch ({ message }: any) {
             toast.error(message as string);
             console.log(message)
             setIsSending(false);
         }
     }, [publicKey, connection, sendTransaction, recordTransaction]);
 
+    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
+        // Remove any non-digit characters from the input value
+        const numericValue = e.target.value.replace(/[^0-9.]/g, '');
+
+        setAmount(numericValue);
+    };
 
     return (
         <Box
@@ -85,6 +91,7 @@ function SendSolanaForm() {
                     fullWidth
                     value={recipientAddress}
                     onChange={(e) => setRecipientAddress(e.target.value)}
+                    inputProps={{ maxLength: 44 }}
                 />
                 <TextField
                     size='small'
@@ -94,7 +101,7 @@ function SendSolanaForm() {
                     sx={{ marginBottom: 2 }}
                     fullWidth
                     value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
+                    onChange={handleAmountChange}
                 />
                 <Button
                     disabled={!recipientAddress || !amount || isSending}
